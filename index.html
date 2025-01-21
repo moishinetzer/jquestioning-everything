@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JQuestioning Everything</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      .product-catalog {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .product-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      .product-item img {
+        max-width: 100px;
+        height: auto;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #eee;
+      }
+      .cart-item img {
+        width: 50px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Product Catalog -->
+    <div class="product-catalog"></div>
+
+    <!-- Shopping Cart -->
+    <div id="shopping-cart">
+      <h2>Shopping Cart</h2>
+      <div class="cart-items"></div>
+      <div class="cart-summary">
+        <div id="subtotal">Subtotal: $0</div>
+        <div id="tax">Tax: $0</div>
+        <div id="total">Total: $0</div>
+      </div>
+    </div>
+
+    <script>
+      // false &&
+      $(document).ready(function () {
+        // Sample product data
+        const products = [
+          {
+            id: 1,
+            name: "Amazon Echo",
+            price: 99.99,
+            image: "https://placehold.co/100x100?text=Echo",
+          },
+          {
+            id: 2,
+            name: "Kindle Paperwhite",
+            price: 139.99,
+            image: "https://placehold.co/100x100?text=Kindle",
+          },
+          {
+            id: 3,
+            name: "Fire TV Stick",
+            price: 49.99,
+            image: "https://placehold.co/100x100?text=FireTV",
+          },
+        ];
+
+        let cartItems = [];
+
+        function generateId() {
+          return Math.random();
+        }
+
+        // Initialize product catalog
+        function initializeCatalog() {
+          products.forEach((product) => {
+            const productHtml = `
+              <div class="product-item" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.name}" />
+                <h3>${product.name}</h3>
+                <p>$${product.price}</p>
+                <button class="add-to-cart">Add to Cart</button>
+              </div>
+            `;
+            $(".product-catalog").append(productHtml);
+          });
+
+          // Add to cart click handler
+          $(".add-to-cart").on("click", function () {
+            const productId = $(this).closest(".product-item").data("id");
+            const product = products.find((p) => p.id === productId);
+
+            addItem({
+              ...product,
+              id: generateId(),
+            });
+          });
+        }
+
+        function addItem(item) {
+          cartItems.push(item);
+          updateCart();
+        }
+
+        function removeItem(id) {
+          cartItems = cartItems.filter((item) => item.id !== id);
+          updateCart();
+        }
+
+        function updateCart() {
+          $(".cart-items").empty();
+
+          cartItems.forEach((item) => {
+            const itemHtml = `
+              <div class="cart-item" data-id="${item.id}">
+                <img src="${item.image}" alt="${item.name}" />
+                <div class="item-details">
+                  <h3>${item.name}</h3>
+                  <p>$${item.price}</p>
+                  <button class="remove-item">Remove</button>
+                </div>
+              </div>
+            `;
+            $(".cart-items").append(itemHtml);
+          });
+
+          const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+          $("#total").text(`Total: $${total.toFixed(2)}`);
+
+          $(".remove-item")
+            .off("click")
+            .on("click", function () {
+              const id = $(this).closest(".cart-item").data("id");
+              removeItem(id);
+            });
+        }
+
+        // Initialize the catalog when document is ready
+        initializeCatalog();
+      });
+    </script>
+
+    <!-- <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script> -->
+  </body>
+</html>

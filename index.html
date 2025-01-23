@@ -7,6 +7,64 @@
     <title>JQuestioning Everything</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
+      /* Navigation Styles */
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #131921;
+        color: white;
+      }
+
+      .nav-logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        flex-grow: 1;
+        margin-left: 20px;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+      }
+
+      .search-bar {
+        display: flex;
+        flex-grow: 2;
+        margin: 0 20px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+      }
+
+      .search-button {
+        background-color: #febd69;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+      }
+
+      .nav-right {
+        display: flex;
+        gap: 20px;
+        margin-left: auto;
+      }
+
+      /* Catalog Styles */
       .product-catalog {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -37,6 +95,30 @@
   </head>
 
   <body>
+    <!-- Navigation Menu -->
+    <!-- <nav class="navbar">
+      <a href="#" class="nav-logo">amazon.co.uk</a>
+
+      <div class="nav-links">
+        <a href="#" class="nav-link">Account & Lists</a>
+        <a href="#" class="nav-link">Returns & Orders</a>
+      </div>
+
+      <form class="search-bar">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search Amazon.co.uk"
+        />
+        <button type="submit" class="search-button">Search</button>
+      </form>
+
+      <div class="nav-right">
+        <a href="#" class="nav-link">Hello, Sign in</a>
+        <a href="#" class="nav-link">Basket</a>
+      </div>
+    </nav> -->
+
     <!-- Product Catalog -->
     <div class="product-catalog"></div>
 

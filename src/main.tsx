@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./init.tsx";
-// import "./index.css";
+import "./index.css";
 
 export function App() {
   const products = [
